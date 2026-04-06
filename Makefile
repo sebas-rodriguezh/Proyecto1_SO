@@ -4,7 +4,7 @@ TARGET = programa_modular
 # Compilador y banderas
 CC = gcc
 CFLAGS = -I./include -pthread
-SRC = main.c src/algo.c
+SRC = main.c src/algo.c src/ejemplo.c
 
 # Regla principal: qué hacer cuando escribas "make"
 all:
