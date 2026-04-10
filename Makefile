@@ -4,8 +4,7 @@ TARGET = programa_modular
 # Compilador y banderas
 CC = gcc
 CFLAGS = -I./include -pthread
-SRC = main.c src/algo.c src/ejemplo.c
-
+SRC = main.c 
 # Regla principal: qué hacer cuando escribas "make"
 all:
 	$(CC) $(SRC) $(CFLAGS) -o $(TARGET)
