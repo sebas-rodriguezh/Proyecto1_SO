@@ -113,6 +113,7 @@ void *ejecutar_camion(void *arg)
  
 
         //Post-Ejecución.
+        //Acá hace FIFO y RR diferente. 
         pthread_mutex_lock(&pl->mutex_cola);
         pl->post_ejecucion(pl, p);
         pthread_mutex_unlock(&pl->mutex_cola);
