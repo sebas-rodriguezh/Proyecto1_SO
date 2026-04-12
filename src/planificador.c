@@ -16,7 +16,7 @@ void inicializar_planificador(Planificador *p, tipoAlgoritmo tipo, int quantum)
     p->cantidad = 0;
     p->camion_activo = NULL;
 
-    phtread_mutex_init(&p->mutex_cola, NULL);
+    pthread_mutex_init(&p->mutex_cola, NULL);
     pthread_cond_init(&p->cond_turno, NULL);
 
     if (tipo == FIFO)
