@@ -7,7 +7,7 @@
 
 /*
 
-Notas: 
+NOTAS: 
 Acumula los tiempos de cada camión al finalizar su ejecución.
 Usa un mutex propio para que múltiples hilos puedan registrar sus resultados de forma segura sin condición de carrera.
 

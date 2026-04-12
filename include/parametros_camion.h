@@ -6,6 +6,7 @@
 #include "recursos.h"
 
 /*
+NOTAS: 
 Struct de datos puros que describe a un camión.
 Es el único argumento que recibe la función del hilo
 al arrancar via pthread_create (como void*).
@@ -28,6 +29,7 @@ Punteros compartidos (todos los camiones apuntan a las mismas instancias):
 
 */
 
+struct Planificador;
 
 typedef struct
 {
