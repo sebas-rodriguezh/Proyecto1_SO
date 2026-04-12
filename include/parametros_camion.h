@@ -44,7 +44,8 @@ typedef struct
     RecursosCompartidos *recursos; 
     Log *log; 
     GestorMetricas *metricas; 
-
+    struct Planificador  *planificador;
+    
 } ParametrosCamion;
 
 

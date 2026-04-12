@@ -22,7 +22,7 @@ typedef struct Planificador
     ParametrosCamion *camion_activo; //Quién tiene permiso ahora. 
 
     void (*encolar)(struct Planificador *p, ParametrosCamion *c);
-    ParametrosCamion *(*desencolar)(struct Planificador *p);
+    ParametrosCamion *(*seleccionar)(struct Planificador *p);
     void (*post_ejecucion)(struct Planificador *p, ParametrosCamion *c);
 
 } Planificador;
