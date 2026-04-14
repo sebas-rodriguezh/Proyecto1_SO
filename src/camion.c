@@ -129,8 +129,11 @@ void *ejecutar_camion(void *arg)
     p->tiempo_fin = tiempo_actual_ms();
  
     long espera = p->tiempo_inicio - p->tiempo_llegada; // Haciendo "cola" desde que llegó hasta que empezó a cargar. (Cuanto tiempo esperó para usar un muelle)
-    long retorno = p->tiempo_fin - p->tiempo_llegada; // Tiempo TOTAL desde que llegó a la "cola" hasta que terminó de cargar.
+    long retorno = p->tiempo_fin - p->tiempo_llegada; // Tiempo TOTAL desde que llegó a la "cola" hasta que terminó de cargar. (Desde que llegó hasta que terminó)
  
+    // FIFO: Malos tiempos de espera y buenos tiempos de retorno.
+    // RR: Mejores tiempos de espera pero peores tiempos de retorno.
+
     registrar_metricas(p->metricas, espera, retorno);
  
     snprintf(mensaje, sizeof(mensaje), "Camion %d | TERMINADO | espera=%ld ms  retorno=%ld ms", p->id, espera, retorno);
