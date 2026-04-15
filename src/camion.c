@@ -134,7 +134,7 @@ void *ejecutar_camion(void *arg)
     // FIFO: Malos tiempos de espera y buenos tiempos de retorno.
     // RR: Mejores tiempos de espera pero peores tiempos de retorno.
 
-    registrar_metricas(p->metricas, espera, retorno);
+    registrar_metricas(p->metricas, p->id, espera, retorno);
  
     snprintf(mensaje, sizeof(mensaje), "Camion %d | TERMINADO | espera=%ld ms  retorno=%ld ms", p->id, espera, retorno);
     escribir_log(p->log, mensaje);

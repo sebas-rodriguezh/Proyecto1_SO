@@ -4,16 +4,6 @@
 #include <pthread.h>
 #include "parametros_camion.h"
 
-/*
-
-NOTAS: 
-Representa un hilo-camión del simulador.
-thread_id es el identificador del hilo POSIX.
-estado refleja en qué fase del ciclo de vida se encuentra.
-params apunta a los datos del camión (compartidos con el hilo).
-
-*/
-
 
 typedef enum
 {

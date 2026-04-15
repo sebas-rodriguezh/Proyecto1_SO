@@ -15,14 +15,14 @@ void inicializar_metricas(GestorMetricas *gestor)
     gestor->cantidad = 0;
 }
 
-void registrar_metricas(GestorMetricas *gestor, long tiempo_espera, long tiempo_retorno)
+void registrar_metricas(GestorMetricas *gestor, int id_camion, long tiempo_espera, long tiempo_retorno)
 {
     pthread_mutex_lock(&gestor->mutex);
 
     if (gestor->cantidad < MAX_CAMIONES)
     {
-        gestor->tiempos_espera[gestor->cantidad] = tiempo_espera;
-        gestor->tiempos_retorno[gestor->cantidad] = tiempo_retorno;
+        gestor->tiempos_espera[id_camion] = tiempo_espera;
+        gestor->tiempos_retorno[id_camion] = tiempo_retorno;
         gestor->cantidad++;
     }
     else
@@ -45,11 +45,19 @@ void calcular_promedios(GestorMetricas *gestor)
     long suma_espera = 0;
     long suma_retorno = 0;
 
+    
+    printf("\n==============================\n");
+    printf("   REGISTROS DE METRICAS\n");
+    printf("==============================\n");
+
     for (int i = 0; i < gestor->cantidad; i++)
     {
+        printf("Camion %d | Espera: %ld ms | Retorno: %ld ms\n", i, gestor->tiempos_espera[i], gestor->tiempos_retorno[i]);
+
         suma_espera += gestor->tiempos_espera[i];
         suma_retorno += gestor->tiempos_retorno[i];
     }
+
 
     printf("\n==============================\n");
     printf("   RESULTADOS DE PLANIFICACION\n");

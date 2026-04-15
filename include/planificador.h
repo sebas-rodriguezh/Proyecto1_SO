@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include "parametros_camion.h"
 
-#define MAX_COLA 50
+#define MAX_COLA 20
 
 typedef enum {
     FIFO = 0, 

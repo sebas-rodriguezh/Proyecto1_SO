@@ -3,7 +3,7 @@
 
 #include <pthread.h>
 
-#define MAX_CAMIONES 30
+#define MAX_CAMIONES 20
 
 /*
 
@@ -27,7 +27,7 @@ typedef struct
 } GestorMetricas;
 
 void inicializar_metricas(GestorMetricas *gestor);
-void registrar_metricas(GestorMetricas *gestor, long tiempo_espera, long tiempo_retorno);
+void registrar_metricas(GestorMetricas *gestor, int id_camion, long tiempo_espera, long tiempo_retorno);
 void calcular_promedios(GestorMetricas *gestor);
 void destruir_metricas(GestorMetricas *gestor);
 
