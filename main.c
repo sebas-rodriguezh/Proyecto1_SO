@@ -73,15 +73,15 @@ int main(int argc, char *argv[])
     }
 
     printf("\n=================================\n");
-    printf("   TERMINAL DE CARGA - SIMULADOR\n");
+    printf("   TERMINAL DE CARGA \n");
     printf("=================================\n");
-    printf("Algoritmo : %s\n", algoritmo);
-    printf("Camiones  : %d\n", num_camiones);
-    printf("Muelles   : %d\n", num_muelles);
+    printf("Algoritmo: %s\n", algoritmo);
+    printf("Camiones: %d\n", num_camiones);
+    printf("Muelles: %d\n", num_muelles);
 
     if (tipo == RR)
     {
-        printf("Quantum   : %d unidades\n", quantum);
+        printf("Quantum: %d unidades\n", quantum);
     }
 
     printf("=================================\n\n");
