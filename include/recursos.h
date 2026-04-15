@@ -5,7 +5,7 @@
 
 /*
 
-Notas: 
+NOTAS: 
 Recursos compartidos entre los hilos (camiones) y el planificador: Controla el acceso a los muelles de carga
 Encapsula el semáforo que controla el acceso a los muelles.
 Se inicializa con la cantidad de muelles disponibles (ej. 3).

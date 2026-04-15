@@ -64,6 +64,6 @@ void inicializar_planificador_fifo (Planificador *p)
     p->tipo = FIFO;
     p->quantum = 0; 
     p->encolar = fifo_encolar;
-    p->desencolar = fifo_seleccionar;
+    p->seleccionar = fifo_seleccionar;
     p->post_ejecucion = fifo_post_ejecucion;
 }
