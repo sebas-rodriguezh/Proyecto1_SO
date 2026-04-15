@@ -66,18 +66,18 @@ void *ejecutar_camion(void *arg)
         {
             pthread_cond_wait(&pl->cond_turno, &pl->mutex_cola);
         }
- 
-        // Ya le toca. Sale a correr.
-        pl->seleccionar(pl);
- 
-        // Suelta el mutex antes del semáforo. 
         pthread_mutex_unlock(&pl->mutex_cola);
- 
-        // Toma el muelle. Puede bloquearse aquí.
+
         snprintf(mensaje, sizeof(mensaje), "Camion %d | ESPERANDO | buscando muelle disponible.", p->id);
         escribir_log(p->log, mensaje);
- 
         tomar_muelle(p->recursos);
+
+        pthread_mutex_lock(&pl->mutex_cola);
+
+        pl->seleccionar(pl);
+
+        pthread_mutex_unlock(&pl->mutex_cola);
+ 
  
         // Registra tiempo_inicio al obtener el muelle (si es la primera vez).
         if (p->tiempo_inicio == 0)
