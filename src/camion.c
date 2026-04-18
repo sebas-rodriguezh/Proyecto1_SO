@@ -13,32 +13,6 @@ static long tiempo_actual_ms()
 }
 
 
-const char* estado_a_texto(Estado estado)
-{
-    switch (estado)
-    {
-        case NUEVO: return "NUEVO";
-        case LISTO: return "LISTO";
-        case EJECUCION: return "EJECUCION";
-        case BLOQUEADO: return "BLOQUEADO";
-        case TERMINADO: return "TERMINADO";
-        default: return "DESCONOCIDO";
-    }
-}
-
-/*
-
-Ciclo de vida:
- 1. Castea el argumento a ParametrosCamion*
- 2. Registra estado LISTO y tiempo de llegada
- 3. Llama tomar_muelle() -> puede bloquearse aquí (estado BLOQUEADO)
- 4. Al obtener el muelle -> estado EJECUCION, registra tiempo_inicio
- 5. Simula trabajo con sleep() por cada unidad de burst
- 6. Registra tiempo_fin, libera el muelle
- 7. Registra métricas, escribe en log → estado TERMINADO
-
-*/
-
 void *ejecutar_camion(void *arg)
 {
     ParametrosCamion *p  = (ParametrosCamion *) arg;
@@ -46,7 +20,6 @@ void *ejecutar_camion(void *arg)
     char mensaje[160];
     int  i;
  
-    // Nuevo. 
     snprintf(mensaje, sizeof(mensaje), "Camion %d | NUEVO | prioridad=%d burst_total=%d", p->id, p->prioridad, p->burst_total);
     escribir_log(p->log, mensaje);
  
@@ -54,7 +27,6 @@ void *ejecutar_camion(void *arg)
     pl->encolar(pl, p);
     pthread_mutex_unlock(&pl->mutex_cola);
  
-    // listo.
     snprintf(mensaje, sizeof(mensaje), "Camion %d | LISTO | encolado, esperando turno.", p->id);
     escribir_log(p->log, mensaje);
  
@@ -68,7 +40,7 @@ void *ejecutar_camion(void *arg)
         }
         pthread_mutex_unlock(&pl->mutex_cola);
 
-        snprintf(mensaje, sizeof(mensaje), "Camion %d | ESPERANDO | buscando muelle disponible.", p->id);
+        snprintf(mensaje, sizeof(mensaje), "Camion %d | BLOQUEADO | buscando muelle disponible.", p->id);
         escribir_log(p->log, mensaje);
         tomar_muelle(p->recursos);
 
@@ -79,13 +51,11 @@ void *ejecutar_camion(void *arg)
         pthread_mutex_unlock(&pl->mutex_cola);
  
  
-        // Registra tiempo_inicio al obtener el muelle (si es la primera vez).
         if (p->tiempo_inicio == 0)
         {
             p->tiempo_inicio = tiempo_actual_ms();
         }
  
-       //Calcula cuántas unidades de trabajo va a hacer en esta ejecución (quantum o lo que quede).
         int unidades;
         if (pl->tipo == FIFO)
         {
@@ -93,7 +63,14 @@ void *ejecutar_camion(void *arg)
         }
         else
         {
-            unidades = (p->tiempo_restante < pl->quantum) ? p->tiempo_restante : pl->quantum;
+            if (p->tiempo_restante < pl->quantum)
+            {
+                unidades = p->tiempo_restante;
+            }
+            else 
+            {
+                unidades = pl->quantum;
+            }
         }
  
         snprintf(mensaje, sizeof(mensaje), "Camion %d | EJECUCION | ejecutando %d unidad(es) (restante antes=%d)", p->id, unidades, p->tiempo_restante);
@@ -108,11 +85,8 @@ void *ejecutar_camion(void *arg)
             escribir_log(p->log, mensaje);
         }
  
-        //Libera muelle antes de tocar la cola. 
         liberar_muelle(p->recursos);
  
-
-        //Post-Ejecución.
         //Acá hace FIFO y RR diferente. 
         pthread_mutex_lock(&pl->mutex_cola);
         pl->post_ejecucion(pl, p);

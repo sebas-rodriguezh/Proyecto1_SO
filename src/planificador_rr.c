@@ -38,7 +38,14 @@ static ParametrosCamion *rr_seleccionar(Planificador *p)
     p->cola[p->cantidad-1] = NULL;
     p->cantidad--;
 
-    p->camion_activo = (p->cantidad > 0) ? p->cola[0] : NULL;
+    if (p->cantidad > 0)
+    {
+        p->camion_activo = p->cola[0];
+    }
+    else 
+    {
+        p->camion_activo = NULL;
+    }
 
     return seleccionado;
 }

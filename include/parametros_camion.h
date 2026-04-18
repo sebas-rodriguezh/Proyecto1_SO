@@ -5,30 +5,6 @@
 #include "metricas.h"
 #include "recursos.h"
 
-/*
-NOTAS: 
-Struct de datos puros que describe a un camión.
-Es el único argumento que recibe la función del hilo
-al arrancar via pthread_create (como void*).
-
-Datos generados al crear el camión (antes de pthread_create):
- id: índice del arreglo (0, 1, 2...)
- prioridad: rand() % 3 + 1  →  valores 1, 2 o 3
- burst_total: rand() % 5 + 2  →  entre 2 y 6 unidades. Cantidad total de trabajo (tiempo de carga o tiempo de CPU)
- tiempo_restante: empieza igual que burst_total
- tiempo_llegada: capturado con clock_gettime() antes del create
- 
-Datos registrados durante la ejecución del hilo:
- tiempo_inicio: cuando el hilo pasa el sem_wait (obtiene muelle)
- tiempo_fin: cuando el hilo termina su trabajo (antes del sem_post)
- 
-Punteros compartidos (todos los camiones apuntan a las mismas instancias):
- recursos: para tomar y liberar muelles
- log: para escribir eventos
- metrica: para registrar tiempos al terminar
-
-*/
-
 struct Planificador;
 
 typedef struct
@@ -41,10 +17,11 @@ typedef struct
     long tiempo_inicio;
     long tiempo_fin;
 
+    // Todas son instancias compartidas. (Puntero al mismo objeto en la terminal).
     RecursosCompartidos *recursos; 
     Log *log; 
     GestorMetricas *metricas; 
-    struct Planificador  *planificador;
+    struct Planificador *planificador;
     
 } ParametrosCamion;
 

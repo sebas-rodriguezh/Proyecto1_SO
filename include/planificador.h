@@ -18,8 +18,8 @@ typedef struct Planificador
     ParametrosCamion *cola[MAX_COLA];
     int cantidad;
     pthread_mutex_t mutex_cola; 
-    pthread_cond_t cond_turno; //Señal para revisar si es el turno. 
-    ParametrosCamion *camion_activo; //Quién tiene permiso ahora. 
+    pthread_cond_t cond_turno;
+    ParametrosCamion *camion_activo;
 
     void (*encolar)(struct Planificador *p, ParametrosCamion *c);
     ParametrosCamion *(*seleccionar)(struct Planificador *p);

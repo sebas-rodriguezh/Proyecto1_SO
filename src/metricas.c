@@ -33,7 +33,6 @@ void registrar_metricas(GestorMetricas *gestor, int id_camion, long tiempo_esper
     pthread_mutex_unlock(&gestor->mutex);
 }
 
-/* Calcula los promedios de los tiempos de espera y retorno, los imprime y usa el ns como unidad de medida (Podría cambiar), e incluso su retorno podría no ser void. */
 void calcular_promedios(GestorMetricas *gestor)
 {
     if (gestor->cantidad == 0)

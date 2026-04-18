@@ -27,20 +27,17 @@ void ejecutar_terminal(Terminal *t)
     for (i = 0; i < t->num_camiones; i++)
     {
         clock_gettime(CLOCK_MONOTONIC, &ts);
-        t->params[i].tiempo_llegada  = ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
-
+        t->params[i].tiempo_llegada = ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
         t->params[i].id = i;
-        t->params[i].prioridad = rand() % 3 + 1;
-        t->params[i].burst_total = rand() % 5 + 2;
+        t->params[i].prioridad = rand() % 2 + 1;
+        t->params[i].burst_total = rand() % 6 + 2;
         t->params[i].tiempo_restante = t->params[i].burst_total;
         t->params[i].tiempo_inicio = 0;
         t->params[i].tiempo_fin = 0;
-
         t->params[i].recursos = &t->recursos;
         t->params[i].log = &t->log;
         t->params[i].metricas = &t->metricas;
         t->params[i].planificador = (struct Planificador *) &t->planificador;
-
         t->camiones[i].params = &t->params[i];
         t->camiones[i].estado = NUEVO;
 

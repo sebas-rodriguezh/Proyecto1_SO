@@ -12,20 +12,15 @@ void inicializar_log(Log *log, const char *ruta_archivo)
 
         if (log->archivo == NULL)
         {
-            /* Acá cae si no se puede abrir el archivo, cae a stdout. */
-            log->archivo = stdout; 
+            log->archivo = stdout; // Imprimir en salida, esta forma es la que vamos a usar. 
         }
     } 
     else 
     {
-        log->archivo = stdout;
+        log->archivo = stdout; // Siempre va a caer. 
     }
 }
 
-/*
-Escribe un mensaje precedido de timestamp en formato [HH:MM:SS]. (Util para el control de tiempo)
-Usa lock/unlock del mutex para garantizar que los mensajes no se mezclen (Cuando hay varios hilos corriendo al mismo tiempo).
-*/
 
 void escribir_log(Log *log, const char *mensaje)
 {
@@ -39,6 +34,7 @@ void escribir_log(Log *log, const char *mensaje)
 
     pthread_mutex_unlock(&log->mutex);
 }
+
 
 void destruir_log(Log *log)
 {

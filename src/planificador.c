@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-// Estas son funciones que actúan como "interfaces" para cada tipo de planificador.
 
 void inicializar_planificador_fifo (Planificador *p);
 void inicializar_planificador_rr (Planificador *p, int quantum);

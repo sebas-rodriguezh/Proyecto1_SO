@@ -10,14 +10,15 @@
 
 typedef struct
 {
-    Camion           camiones[MAX_CAMIONES];
-    ParametrosCamion params[MAX_CAMIONES];
-    int              num_camiones;
+    int num_camiones;
 
-    Planificador       planificador;
+    Planificador planificador;
     RecursosCompartidos recursos;
-    Log                log;
-    GestorMetricas     metricas;
+    Log log;
+    GestorMetricas metricas;
+
+    Camion camiones[MAX_CAMIONES];
+    ParametrosCamion params[MAX_CAMIONES];
 
 } Terminal;
 

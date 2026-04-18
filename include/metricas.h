@@ -5,21 +5,10 @@
 
 #define MAX_CAMIONES 20
 
-/*
-
-NOTAS: 
-Acumula los tiempos de cada camión al finalizar su ejecución.
-Usa un mutex propio para que múltiples hilos puedan registrar sus resultados de forma segura sin condición de carrera.
-
-Fórmulas:
-tiempo_espera = tiempoInicio - tiempoLlegada
-tiempo_retorno = tiempoFin - tiempoLlegada
-
-*/
 
 typedef struct
 {
-    pthread_mutex_t mutex; /* Mutex para que los camiones no corrompan los arreglos y los resultados */
+    pthread_mutex_t mutex;
 
     long tiempos_espera[MAX_CAMIONES];
     long tiempos_retorno[MAX_CAMIONES];
