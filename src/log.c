@@ -45,9 +45,3 @@ void destruir_log(Log *log)
         fclose(log->archivo);
     }
 }
-
-
-
-
-
-

@@ -17,4 +17,3 @@ void destruir_recursos(RecursosCompartidos *recursos);
 
 
 #endif
-
